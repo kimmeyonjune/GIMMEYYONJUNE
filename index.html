@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자기소개</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .char {
+            display: inline-block;
+            opacity: 0;
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="introduction">
+        <h1>
+            <span id="name"></span>
+        </h1>
+        <p>
+            <span id="age"></span>
+        </p>
+        <p>
+            <span id="hobby"></span>
+        </p>
+    </div>
+
+    <script>
+        // 사용자 정보 설정
+        var name = "이태곤";
+        var age = "17살";
+        var hobby = "독서를 즐깁니다.";
+
+        // 사용자 정보를 HTML에 삽입하고 나서 한 번에 모든 글자를 나타나도록 만들기
+        var nameElement = document.getElementById("name");
+        var ageElement = document.getElementById("age");
+        var hobbyElement = document.getElementById("hobby");
+
+        function revealText(element, text) {
+            var chars = text.split("");
+            var html = "";
+            for (var i = 0; i < chars.length; i++) {
+                html += "<span class='char'>" + chars[i] + "</span>";
+            }
+            element.innerHTML = html;
+
+            setTimeout(function() {
+                var charElements = element.getElementsByClassName("char");
+                for (var i = 0; i < charElements.length; i++) {
+                    (function(index) {
+                        setTimeout(function() {
+                            charElements[index].style.opacity = 1;
+                            charElements[index].style.transform = "translateY(100px)";
+                        }, 50 * index);
+                    })(i);
+                }
+            }, 100);
+        }
+
+        revealText(nameElement, name);
+        revealText(ageElement, age);
+        revealText(hobbyElement, hobby);
+
+        // 일정 시간 후에 화면을 나가도록 설정
+        setTimeout(function() {
+            document.body.style.overflow = "visible";
+        }, 3500);
+    </script>
+</body>
+</html>
+
+
+
+
+   
